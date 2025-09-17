@@ -22,11 +22,36 @@ public class ServiceTypeServiceImpl implements ServiceTypeService {
 
     @Override
     public ServiceTypeResponse create(ServiceTypeRequest req) {
-        if (repo.existsByName(req.getName())) throw new ConflictException("Service type exists");
+        if (repo.existsByName(req.getName()))
+            throw new ConflictException("Service type exists");
+
+
+        String code = generateUniqueCode(req.getName());
+
         ServiceType st = mapper.toEntity(req);
+        st.setCode(code);
+        st.setLastSeq(0);
+
         return mapper.toDto(repo.save(st));
     }
 
+
+    private String generateUniqueCode(String name) {
+        String base = name == null ? "" : name.replaceAll("[^A-Za-z]", "").toUpperCase();
+        if (base.isEmpty()) base = "S";
+
+
+        for (int len = 1; len <= Math.min(3, base.length()); len++) {
+            String candidate = base.substring(0, len);
+            if (!repo.existsByCode(candidate)) return candidate;
+        }
+
+        for (int i = 2; i <= 9; i++) {
+            String candidate = base.substring(0,1) + i;
+            if (!repo.existsByCode(candidate)) return candidate;
+        }
+        throw new ConflictException("Cannot generate unique service code");
+    }
     @Override
     public ServiceTypeResponse update(Long id, ServiceTypeRequest req) {
         ServiceType st = repo.findById(id).orElseThrow(() -> new NotFoundException("ServiceType not found"));

@@ -1,6 +1,7 @@
-package com.queue.serviceimpl;
+package com.queue.serviceImpl;
 
 import com.queue.dto.CreateTicketRequest;
+import com.queue.dto.MonitorEntryResponse;
 import com.queue.dto.TicketResponse;
 import com.queue.enums.TicketStatus;
 import com.queue.exception.BadRequestException;
@@ -30,24 +31,47 @@ public class TicketServiceImpl implements TicketService {
     private final TicketMapper mapper;
 
     @Override
+    @Transactional
     public TicketResponse open(CreateTicketRequest req) {
         ServiceType st = serviceTypeRepo.findById(req.getServiceTypeId())
                 .orElseThrow(() -> new NotFoundException("ServiceType not found"));
-        String number = TicketNumberGenerator.generate();
+
+
+        String code = st.getCode();
+        if (code == null || code.isBlank()) {
+            String base = st.getName() == null ? "" : st.getName().replaceAll("[^A-Za-z]", "").toUpperCase();
+            if (base.isEmpty()) base = "S";
+            int len = Math.min(3, base.length());
+            code = base.substring(0, len);
+            st.setCode(code);
+        }
+
+
+        Integer seq = st.getLastSeq();
+        if (seq == null) seq = 0;
+        seq++;
+        st.setLastSeq(seq);
+
+        String number = code + String.format("%03d", seq);
+
+
         Ticket t = Ticket.builder()
                 .number(number)
-                .status(TicketStatus.OPEN)
+                .status(TicketStatus.WAITING)
                 .serviceType(st)
                 .build();
-        return mapper.toDto(ticketRepo.save(t));
+
+        t = ticketRepo.save(t);
+        return mapper.toDto(t);
     }
+
+
 
     @Override
     @Transactional
     public TicketResponse callNext(Long deskId) {
         Desk desk = deskRepo.findById(deskId).orElseThrow(() -> new NotFoundException("Desk not found"));
-        // sadə: həmin masanın ilk OPEN bileti (servis növündən asılı olmayaraq)
-        Ticket t = ticketRepo.findAllByStatus(TicketStatus.OPEN).stream().findFirst()
+        Ticket t = ticketRepo.findAllByStatus(TicketStatus.WAITING).stream().findFirst()
                 .orElseThrow(() -> new BadRequestException("No open tickets"));
         t.setDesk(desk);
         t.setStatus(TicketStatus.CALLED);
@@ -75,9 +99,22 @@ public class TicketServiceImpl implements TicketService {
         return mapper.toDto(ticketRepo.save(t));
     }
 
+
     @Override
-    public List<TicketResponse> monitor() {
-        return ticketRepo.findAll().stream().map(mapper::toDto).toList();
+    @Transactional(readOnly = true)
+    public List<MonitorEntryResponse> monitor() {
+        return ticketRepo.findAllByOrderByIdDesc()
+                .stream()
+                .map(t -> new MonitorEntryResponse(
+                        t.getId(),
+                        t.getNumber(),
+                        t.getStatus().name(),
+                        t.getServiceType() != null ? t.getServiceType().getName() : "-",
+                        t.getDesk() != null
+                                ? (t.getDesk().getName() != null ? t.getDesk().getName() : String.valueOf(t.getDesk().getId()))
+                                : "-"
+                ))
+                .toList();
     }
 
     private Ticket getTicket(Long id){

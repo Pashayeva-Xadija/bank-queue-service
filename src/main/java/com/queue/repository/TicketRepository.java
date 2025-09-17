@@ -3,6 +3,7 @@ package com.queue.repository;
 import com.queue.enums.TicketStatus;
 import com.queue.model.ServiceType;
 import com.queue.model.Ticket;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -17,4 +18,7 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     Optional<Ticket> findTopByServiceTypeAndStatusOrderByIdAsc(ServiceType serviceType, TicketStatus status);
 
     boolean existsByNumber(String number);
+
+    @EntityGraph(attributePaths = {"serviceType", "desk"})
+    List<Ticket> findAllByOrderByIdDesc();
 }

@@ -1,5 +1,6 @@
 package com.queue.controller;
 
+import com.queue.dto.MonitorEntryResponse;
 import com.queue.dto.TicketResponse;
 import com.queue.service.TicketService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public class MonitorController {
     private final TicketService ticketService;
 
     @GetMapping
-    public ResponseEntity<List<TicketResponse>> list(){
-        return ResponseEntity.ok(ticketService.monitor());
+    public List<MonitorEntryResponse> list() {
+        return ticketService.monitor();
     }
 }

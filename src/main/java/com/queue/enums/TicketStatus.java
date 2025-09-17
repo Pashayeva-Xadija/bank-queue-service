@@ -1,7 +1,7 @@
 package com.queue.enums;
 
 public enum TicketStatus {
-    OPEN,
+    WAITING,
     CALLED,
     IN_PROGRESS,
     FINISHED,

@@ -1,4 +1,4 @@
-package com.queue.serviceimpl;
+package com.queue.serviceImpl;
 
 import com.queue.dto.DeskRequest;
 import com.queue.dto.DeskResponse;
