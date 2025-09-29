@@ -24,14 +24,16 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())
+        http
+                .csrf(csrf -> csrf.disable())
+                .cors(cors -> {})
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(reg -> reg
-                        .requestMatchers(
-                                "/", "/index.html", "/favicon.ico",
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+                        .requestMatchers("/", "/index.html", "/favicon.ico",
                                 "/static/**", "/assets/**", "/webjars/**",
-                                "/css/**", "/js/**", "/images/**"
-                        ).permitAll()
+                                "/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers("/api/auth/**", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/monitor/**").permitAll()
                         .requestMatchers("/api/open-ticket/**").permitAll()
