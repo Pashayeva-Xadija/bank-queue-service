@@ -12,29 +12,31 @@ import java.util.List;
 @Configuration
 public class CorsConfig {
 
-    @Value("${cors.allowed-origins:http://localhost:3000}")
+    @Value("${cors.allowed-origins:*}")
     private String allowed;
 
     @Bean
-    public CorsFilter corsFilter() {
+    public org.springframework.web.cors.CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration cfg = new CorsConfiguration();
 
         String[] arr = allowed.split(",");
-        boolean wildcard = java.util.Arrays.stream(arr).anyMatch(s -> s.trim().equals("*"));
+        boolean wildcard = java.util.Arrays.stream(arr)
+                .anyMatch(s -> s.trim().equals("*"));
 
         if (wildcard) {
             cfg.addAllowedOriginPattern("*");
             cfg.setAllowCredentials(false);
+        } else {
             cfg.setAllowedOrigins(java.util.List.of(arr));
             cfg.setAllowCredentials(true);
         }
 
         cfg.setAllowedMethods(java.util.List.of("GET","POST","PUT","DELETE","OPTIONS"));
         cfg.addAllowedHeader("*");
+        cfg.addExposedHeader("Authorization");
 
         UrlBasedCorsConfigurationSource src = new UrlBasedCorsConfigurationSource();
         src.registerCorsConfiguration("/**", cfg);
-        return new CorsFilter(src);
+        return src;
     }
-
 }
