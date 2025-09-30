@@ -5,18 +5,10 @@
     <title>Bank Queue Service — Demo UI</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        :root{
-            --bg:#0b1020; --card:#141b34; --card-2:#10162b; --pri:#5ad67d; --sec:#6ea8fe;
-            --danger:#ff6b6b; --text:#e9eefb; --muted:#9fb0d0; --border:#22305b; --chip:#1d2546;
-        }
+        :root{ --bg:#0b1020; --card:#141b34; --card-2:#10162b; --pri:#5ad67d; --sec:#6ea8fe; --danger:#ff6b6b; --text:#e9eefb; --muted:#9fb0d0; --border:#22305b; --chip:#1d2546; }
         *{box-sizing:border-box}
-        body{
-            margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Helvetica,Arial;
-            background: radial-gradient(1200px 800px at 20% -10%, #1f2b57 0%, rgba(31,43,87,0) 60%),
-            radial-gradient(900px 700px at 120% 10%, #0b4b3c 0%, rgba(11,75,60,0) 60%),
-            var(--bg);
-            color:var(--text);
-        }
+        body{ margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Helvetica,Arial;
+            background: radial-gradient(1200px 800px at 20% -10%, #1f2b57 0%, rgba(31,43,87,0) 60%), radial-gradient(900px 700px at 120% 10%, #0b4b3c 0%, rgba(11,75,60,0) 60%), var(--bg); color:var(--text); }
         header{padding:24px 20px; background:linear-gradient(90deg,#17305d,#102040); border-bottom:1px solid var(--border); position:sticky; top:0; z-index:5;}
         .brand{display:flex; align-items:center; gap:12px; font-weight:700; letter-spacing:.3px;}
         .brand .logo{width:36px;height:36px;border-radius:10px;background:conic-gradient(from 210deg at 50% 50%, #5ad67d, #2ed8b7 20%, #6ea8fe 50%, #b37bff 80%, #5ad67d); box-shadow:0 8px 30px rgba(90,214,125,.4) inset, 0 2px 10px rgba(0,0,0,.35);}
@@ -41,8 +33,6 @@
         @keyframes pop{from{transform:translateY(8px); opacity:.6} to{transform:none; opacity:1}}
         .flex{display:flex; gap:10px; align-items:center}
         .spacer{flex:1}
-
-
         .tiles{display:grid; gap:14px}
         @media(min-width:700px){ .tiles{grid-template-columns:repeat(3,1fr)} }
         @media(max-width:699px){ .tiles{grid-template-columns:1fr} }
@@ -52,18 +42,12 @@
         .search{width:100%}
         .svc{display:flex; align-items:center; gap:12px; justify-content:space-between; padding:10px 12px; background:var(--chip); border:1px solid var(--border); border-radius:12px}
         .svc-title{font-weight:600}
-
-
-        .badge{display:inline-flex;align-items:center;gap:8px;
-            padding:6px 12px;border-radius:999px;font-weight:800;font-size:12px;letter-spacing:.3px;
-            border:1px solid rgba(255,255,255,.08);box-shadow:0 4px 18px rgba(0,0,0,.25) inset}
+        .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;font-weight:800;font-size:12px;letter-spacing:.3px;border:1px solid rgba(255,255,255,.08);box-shadow:0 4px 18px rgba(0,0,0,.25) inset}
         .badge-wait{background:rgba(159,176,208,.18); color:#e0e8ff; border-color:rgba(159,176,208,.35)}
         .badge-called{background:rgba(110,168,254,.22); color:#cfe1ff; border-color:rgba(110,168,254,.45)}
         .badge-inp{background:rgba(90,214,125,.22); color:#cff6db; border-color:rgba(90,214,125,.45)}
         .badge-fin{background:rgba(179,164,255,.25); color:#dcd4ff; border-color:rgba(179,164,255,.50)}
         .badge-can{background:rgba(255,107,107,.25); color:#ffd0cf; border-color:rgba(255,107,107,.50)}
-
-
         .chip{padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.08);font-weight:700;font-size:12px}
         .chip-wait{background:rgba(159,176,208,.18)}
         .chip-called{background:rgba(110,168,254,.22)}
@@ -82,8 +66,11 @@
                 <div class="muted">Admin · Operator · Public (Monitor & Open Ticket)</div>
             </div>
             <div class="spacer"></div>
-            <div style="background:#10162b;border:1px solid var(--border);border-radius:999px;padding:6px 10px">API:
-                <input id="baseUrl" style="width:260px;background:transparent;border:0;color:var(--text)">
+            <div style="background:#10162b;border:1px solid var(--border);border-radius:999px;padding:6px 10px">
+                API:
+                <input id="baseUrl" placeholder="https://bank-queue-service-production.up.railway.app"
+                       style="width:380px;background:transparent;border:0;color:var(--text)">
+                <button class="btn-ghost" id="useCurrent">Use current</button>
             </div>
         </div>
     </div>
@@ -99,22 +86,35 @@
         <div class="tab" data-tab="customer">Müştəri</div>
     </div>
 
-
     <section class="grid grid-2" data-pane="auth">
         <div class="card">
             <h3>Admin – Register/Login</h3>
-            <div class="flex"><input id="adminUser" placeholder="username" value="admin"><input id="adminPass" placeholder="password" type="password" value="admin"></div>
-            <div class="flex"><button class="btn" onclick="register('ADMIN')">Register ADMIN</button><button class="btn-sec" onclick="login('ADMIN')">Login ADMIN</button><button class="btn-ghost" onclick="clearToken('admin')">Logout (clear token)</button></div>
+            <div class="flex">
+                <input id="adminUser" placeholder="username" value="XadijaPashayeva">
+                <input id="adminPass" placeholder="password" type="password" value="Xadija4002">
+            </div>
+            <div class="flex">
+                <button class="btn" onclick="register('ADMIN')">Register ADMIN</button>
+                <button class="btn-sec" onclick="login('ADMIN')">Login ADMIN</button>
+                <button class="btn-ghost" onclick="clearToken('admin')">Logout (clear token)</button>
+            </div>
             <div class="muted">Token: <span id="adminTokenPreview" style="font-family:monospace">—</span></div>
         </div>
+
         <div class="card">
             <h3>Operator – Register/Login</h3>
-            <div class="flex"><input id="opUser" placeholder="username" value="operator1"><input id="opPass" placeholder="password" type="password" value="operator"></div>
-            <div class="flex"><button class="btn" onclick="register('OPERATOR')">Register OPERATOR</button><button class="btn-sec" onclick="login('OPERATOR')">Login OPERATOR</button><button class="btn-ghost" onclick="clearToken('operator')">Logout (clear token)</button></div>
+            <div class="flex">
+                <input id="opUser" placeholder="username" value="Khadijaaa">
+                <input id="opPass" placeholder="password" type="password" value="Xadija4002">
+            </div>
+            <div class="flex">
+                <button class="btn" onclick="register('OPERATOR')">Register OPERATOR</button>
+                <button class="btn-sec" onclick="login('OPERATOR')">Login OPERATOR</button>
+                <button class="btn-ghost" onclick="clearToken('operator')">Logout (clear token)</button>
+            </div>
             <div class="muted">Token: <span id="opTokenPreview" style="font-family:monospace">—</span></div>
         </div>
     </section>
-
 
     <section class="grid grid-2" data-pane="admin" style="display:none">
         <div class="card">
@@ -128,7 +128,6 @@
             <div id="deskList" class="muted">No data</div>
         </div>
     </section>
-
 
     <section class="grid grid-2" data-pane="public" style="display:none">
         <div class="card">
@@ -147,7 +146,6 @@
         </div>
     </section>
 
-
     <section class="grid grid-2" data-pane="operator" style="display:none">
         <div class="card">
             <h3>Call Next <span style="font-size:11px;background:#0b1b34;border:1px solid var(--border);padding:2px 6px;border-radius:7px">/api/operator/desks/{deskId}/call-next</span></h3>
@@ -161,7 +159,6 @@
         </div>
     </section>
 
-
     <section data-pane="monitor" style="display:none">
         <div class="card">
             <div class="flex">
@@ -171,17 +168,13 @@
                 <button class="btn-ghost" onclick="toggleAuto()">Auto: <span id="autoLbl">OFF</span></button>
             </div>
             <div class="muted" id="monitorTs" style="margin:8px 0">Last update: —</div>
-
-
             <div id="monStats" class="flex" style="gap:8px; margin:6px 0 10px 0"></div>
-
             <table class="table" id="monitorTable">
                 <thead><tr><th>ID</th><th>Number</th><th>Status</th><th>ServiceType</th><th>Desk</th></tr></thead>
                 <tbody></tbody>
             </table>
         </div>
     </section>
-
 
     <section data-pane="customer" style="display:none">
         <div id="cust_tiles_view" class="card">
@@ -204,11 +197,9 @@
 </div>
 
 <script>
-
     const state = { adminToken:sessionStorage.getItem('adminToken')||'', operatorToken:sessionStorage.getItem('operatorToken')||'', auto:false, timer:null };
     const el = s=>document.querySelector(s);
-    const setBaseDefault = ()=>{ el('#baseUrl').value = el('#baseUrl').value || window.location.origin; };
-    const BASE = ()=> el('#baseUrl').value.replace(/\/+$/, '');
+    const BASE = ()=> (el('#baseUrl').value||'').replace(/\/+$/,'');
     const showToast=(msg,ok=true)=>{const t=el('#toast');t.innerText=msg;t.style.borderColor=ok?'#2d6':'#633';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600);};
     const truncate=(s,len=18)=>s?(s.length>len?s.slice(0,len)+'…':s):'—';
     const updateAuthUI = ()=>{
@@ -217,35 +208,48 @@
         const as = document.getElementById('adminStatus'); if(as) as.innerText = state.adminToken?'logged in':'logged out';
         const os = document.getElementById('opStatus'); if(os) os.innerText = state.operatorToken?'logged in':'logged out';
     };
+
     async function api(path, method='GET', body=null, role='none'){
         const headers={'Accept':'application/json'};
         if(body!==null){ headers['Content-Type']='application/json'; }
         const token = role==='admin'?state.adminToken: role==='operator'?state.operatorToken:'';
         if(token) headers['Authorization']='Bearer '+token;
-        const r = await fetch(BASE()+path,{method,headers,body:body?JSON.stringify(body):undefined});
+
+        const url = BASE()+path;
+        const r = await fetch(url,{method,headers,body:body?JSON.stringify(body):undefined});
         const text = await r.text(); let data; try{data=text?JSON.parse(text):{};}catch{data={raw:text};}
-        if(!r.ok){ throw new Error(data?.message || `${r.status} ${r.statusText}`); }
+        if(!r.ok){
+            const msg = (data && (data.message||data.error)) ? (data.message||data.error) : (text||'');
+            throw new Error(`${r.status} ${r.statusText} — ${msg}`.trim());
+        }
         return data;
     }
-
 
     async function register(role){ try{
         const isAdmin=role==='ADMIN'; const username=isAdmin?el('#adminUser').value:el('#opUser').value; const password=isAdmin?el('#adminPass').value:el('#opPass').value;
         await api('/api/auth/register','POST',{username,password,role}); showToast(`Registered ${role} user "${username}"`);
     }catch(e){ showToast('Register error: '+e.message,false); } }
+
     async function login(role){ try{
         const isAdmin=role==='ADMIN'; const username=isAdmin?el('#adminUser').value:el('#opUser').value; const password=isAdmin?el('#adminPass').value:el('#opPass').value;
-        const res=await api('/api/auth/login','POST',{username,password}); const token=res.accessToken||res.token||res.jwt||res.access_token||'';
+        const res=await api('/api/auth/login','POST',{username,password});
+        const token=res.accessToken||res.token||res.jwt||res.access_token||'';
         if(!token) throw new Error('Token not found in response');
         if(isAdmin){state.adminToken=token;sessionStorage.setItem('adminToken',token);} else {state.operatorToken=token;sessionStorage.setItem('operatorToken',token);}
         updateAuthUI(); showToast(`${role} login OK`);
     }catch(e){ showToast('Login error: '+e.message,false); } }
-    function clearToken(which){ if(which==='admin'){state.adminToken='';sessionStorage.removeItem('adminToken');} else {state.operatorToken='';sessionStorage.removeItem('operatorToken');} updateAuthUI(); showToast('Token cleared'); }
+
+    function clearToken(which){
+        if(which==='admin'){state.adminToken='';sessionStorage.removeItem('adminToken');}
+        else {state.operatorToken='';sessionStorage.removeItem('operatorToken');}
+        updateAuthUI(); showToast('Token cleared');
+    }
 
     async function createServiceType(){ try{
         const name=el('#svcName').value.trim(); if(!name) return showToast('Enter service name',false);
         const res=await api('/api/admin/service-types','POST',{name},'admin'); showToast('Service type created: '+res.name); el('#svcName').value=''; await loadServiceTypes();
     }catch(e){ showToast('Create service error: '+e.message,false); } }
+
     async function loadServiceTypes(){ try{
         const list=await api('/api/admin/service-types','GET',null,'admin');
         const wrap=el('#svcList'); wrap.innerHTML=list.length?'':'<span class="muted">Empty</span>';
@@ -256,10 +260,12 @@
             if(sel){ const opt=document.createElement('option'); opt.value=x.id; opt.textContent=`${x.id} — ${x.name}`; sel.appendChild(opt); }
         });
     }catch(e){ showToast('Load services error: '+e.message,false); } }
+
     async function createDesk(){ try{
         const name=el('#deskName').value.trim(); if(!name) return showToast('Enter desk name',false);
         const res=await api('/api/admin/desks','POST',{name},'admin'); showToast('Desk created: '+res.name); el('#deskName').value=''; await loadDesks();
-    }catch(e){ showToast('Create desk error: '+e.message,false); } }
+    }catch(e){ showToast('Load desks error: '+e.message,false); } }
+
     async function loadDesks(){ try{
         const list=await api('/api/admin/desks','GET',null,'admin');
         const wrap=el('#deskList'); wrap.innerHTML=list.length?'':'<span class="muted">Empty</span>';
@@ -276,22 +282,11 @@
         el('#openTicketResult').innerHTML=`Ticket <b>${res.number||'—'}</b> (ID: ${res.id})`; showToast('Ticket opened: '+(res.number||res.id));
     }catch(e){ showToast('Open ticket error: '+e.message,false); } }
 
-
     function statusHTML(s){
         const m=(s||'').toUpperCase();
-        const cls={
-            WAITING:'badge badge-wait',
-            CALLED:'badge badge-called',
-            IN_PROGRESS:'badge badge-inp',
-            IN_SERVICE:'badge badge-inp',
-            FINISHED:'badge badge-fin',
-            COMPLETED:'badge badge-fin',
-            CANCELED:'badge badge-can',
-            CANCELLED:'badge badge-can'
-        }[m] || 'badge badge-wait';
+        const cls={ WAITING:'badge badge-wait', CALLED:'badge badge-called', IN_PROGRESS:'badge badge-inp', IN_SERVICE:'badge badge-inp', FINISHED:'badge badge-fin', COMPLETED:'badge badge-fin', CANCELED:'badge badge-can', CANCELLED:'badge badge-can' }[m] || 'badge badge-wait';
         return `<span class="${cls}">${m || '—'}</span>`;
     }
-
 
     async function callNext(){ try{
         const deskId=Number(el('#deskId').value); if(!deskId) return showToast('Enter Desk ID',false);
@@ -299,6 +294,7 @@
         el('#callNextResult').innerHTML=res?.id?`Next: <b>${res.number}</b> (ID ${res.id}) ${statusHTML(res.status)}`:'No ticket';
         showToast('Call-next OK'); await loadMonitor(); el('#ticketId').value=res?.id||'';
     }catch(e){ showToast('Call-next error: '+e.message,false); } }
+
     async function ticketAction(action){ try{
         const id=Number(el('#ticketId').value); if(!id) return showToast('Enter Ticket ID',false);
         const res=await api(`/api/operator/tickets/${id}/${action}`,'POST',null,'operator');
@@ -307,7 +303,6 @@
     async function startTicket(){ await ticketAction('start'); }
     async function finishTicket(){ await ticketAction('finish'); }
     async function cancelTicket(){ await ticketAction('cancel'); }
-
 
     function renderStats(arr){
         const cnt = {WAITING:0,CALLED:0,IN_PROGRESS:0,FINISHED:0,CANCELED:0};
@@ -319,12 +314,12 @@
         const ms = el('#monStats');
         if(ms){
             ms.innerHTML = `
-              <span class="chip chip-wait">WAITING: ${cnt.WAITING}</span>
-              <span class="chip chip-called">CALLED: ${cnt.CALLED}</span>
-              <span class="chip chip-inp">IN_PROGRESS: ${cnt.IN_PROGRESS}</span>
-              <span class="chip chip-fin">FINISHED: ${cnt.FINISHED}</span>
-              <span class="chip chip-can">CANCELED: ${cnt.CANCELED}</span>
-            `;
+        <span class="chip chip-wait">WAITING: ${cnt.WAITING}</span>
+        <span class="chip chip-called">CALLED: ${cnt.CALLED}</span>
+        <span class="chip chip-inp">IN_PROGRESS: ${cnt.IN_PROGRESS}</span>
+        <span class="chip chip-fin">FINISHED: ${cnt.FINISHED}</span>
+        <span class="chip chip-can">CANCELED: ${cnt.CANCELED}</span>
+      `;
         }
     }
 
@@ -335,18 +330,29 @@
         list.forEach(x=>{
             const tr=document.createElement('tr');
             tr.innerHTML=`<td>${x.id??''}</td>
-                    <td><b>${x.number??''}</b></td>
-                    <td>${statusHTML(x.status)}</td>
-                    <td>${x.serviceType??''}</td>
-                    <td>${x.desk || '-'}</td>`;
+        <td><b>${x.number??''}</b></td>
+        <td>${statusHTML(x.status)}</td>
+        <td>${x.serviceType??''}</td>
+        <td>${x.desk || '-'}</td>`;
             tbody.appendChild(tr);
         });
         renderStats(list);
         const ts=document.getElementById('monitorTs'); if(ts) ts.textContent='Last update: '+new Date().toLocaleTimeString();
     }catch(e){ showToast('Monitor error: '+e.message,false); } }
-    function toggleAuto(){ state.auto=!state.auto; const lbl=el('#autoLbl'); if(lbl) lbl.innerText=state.auto?'ON':'OFF';
+
+    function toggleAuto(){
+        state.auto=!state.auto; const lbl=el('#autoLbl'); if(lbl) lbl.innerText=state.auto?'ON':'OFF';
         if(state.auto){ if(state.timer) clearInterval(state.timer); state.timer=setInterval(loadMonitor,4000); loadMonitor(); }
-        else{ clearInterval(state.timer); state.timer=null; } }
+        else{ clearInterval(state.timer); state.timer=null; }
+    }
+
+   
+    document.addEventListener('DOMContentLoaded', ()=>{
+        // API input-u həmişə cari host ilə doldur
+        el('#baseUrl').value = window.location.origin;
+        el('#useCurrent').addEventListener('click', ()=>{ el('#baseUrl').value = window.location.origin; showToast('API set to current host'); });
+        updateAuthUI(); cust_renderTiles(); cust_fetchPublicServiceTypes(); loadMonitor();
+    });
 
 
     const cust_cats={
@@ -368,11 +374,7 @@
         const wanted=norm(canonicalOf(serviceLabel)); const list=cust_publicST||await cust_fetchPublicServiceTypes();
         if(Array.isArray(list)){
             let best=null,score=-1;
-            list.forEach(st=>{
-                const n=norm(st.name); let s=0;
-                if(n===wanted) s=100; else if(n.includes(wanted)) s=80;
-                if(s>score){score=s;best=st;}
-            });
+            list.forEach(st=>{ const n=norm(st.name); let s=0; if(n===wanted) s=100; else if(n.includes(wanted)) s=80; if(s>score){score=s;best=st;} });
             if(best) return Number(best.id);
         }
         if(state.adminToken){
@@ -419,7 +421,6 @@
     }
 
 
-    setBaseDefault(); updateAuthUI(); cust_renderTiles(); cust_fetchPublicServiceTypes();
     document.querySelectorAll('.tab').forEach(t=>{
         t.addEventListener('click', ()=>{
             document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active')); t.classList.add('active');
@@ -428,7 +429,6 @@
             if(pane==='customer'){ cust_fetchPublicServiceTypes(); }
         });
     });
-    loadMonitor();
 </script>
 </body>
 </html>
