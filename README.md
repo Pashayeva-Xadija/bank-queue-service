@@ -84,7 +84,7 @@ SPRING_DATASOURCE_URL=jdbc:postgresql://postgres.railway.internal:5432/railway
 SPRING_DATASOURCE_USERNAME=postgres
 SPRING_DATASOURCE_PASSWORD=*****
 JWT_SECRET=your-strong-secret
-CORS_ALLOWED_ORIGINS=https://bank-queue-service-production.up.railway.app,http://localhost:3000
+
 
 
 Push to main branch → Railway auto-builds & deploys with Dockerfile
