@@ -109,8 +109,6 @@ PUBLIC → Open tickets, view monitor
 
 🔗 Swagger: https://bank-queue-service-production.up.railway.app/swagger-ui.html
 
-🔗 GitHub Repo: https://github.com/
-<your-username>/bank-queue-service
 
 📬 Contact
 
