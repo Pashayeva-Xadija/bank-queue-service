@@ -114,6 +114,6 @@ PUBLIC → Open tickets, view monitor
 
 📬 Contact
 
-Made with ❤️ by Xədicə Paşayeva
-📧 xadijapashayeva@gmail.com
+Made with by Xədicə Paşayeva: 📧 xadijapashayeva@gmail.com
+
 LinkedIn: https://www.linkedin.com/in/xadija-pashayeva
