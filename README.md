@@ -38,11 +38,9 @@ and operators can call/manage tickets in real-time.
 | Deployment  | Docker, Docker Compose, Railway CI/CD |
 | Frontend    | Simple HTML/CSS/JS Demo UI |
 
----
-
 ## 🧭 Architecture — Flow
 
-
+```text
 User → enters system via UI
     ↓
 Auth (Spring Security, JWT) → login/register
@@ -105,7 +103,7 @@ https://bank-queue-service-production.up.railway.app
 https://bank-queue-service-production.up.railway.app/swagger-ui.html
 
 📬 Contact
-Made with by Xədicə Paşayeva
+Made with ❤️ by Xədicə Paşayeva
 
 📧 Email: xadijapashayeva@gmail.com
 🔗 LinkedIn: https://www.linkedin.com/in/xadija-pashayeva
