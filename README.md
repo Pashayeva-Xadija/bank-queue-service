@@ -42,7 +42,7 @@ and operators can call/manage tickets in real-time.
 
 ## 🧭 Architecture — Flow
 
-```text
+
 User → enters system via UI
     ↓
 Auth (Spring Security, JWT) → login/register
