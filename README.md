@@ -105,5 +105,4 @@ https://bank-queue-service-production.up.railway.app/swagger-ui.html
 📬 Contact
 Made with ❤️ by Xədicə Paşayeva
 
-📧 Email: xadijapashayeva@gmail.com
-🔗 LinkedIn: https://www.linkedin.com/in/xadija-pashayeva
+
